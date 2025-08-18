@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+</head>
+<body>
+  <h2>Payment Requests</h2>
+  <div id="payments"></div>
+
+  <script>
+    async function loadPayments() {
+      const res = await fetch("/payments"); // 🔹 now calls DB API
+      const payments = await res.json();
+      const div = document.getElementById("payments");
+      div.innerHTML = "";
+
+      payments.forEach(p => {
+        div.innerHTML += `
+          <p>
+            ${p.name} (${p.email}) - ${p.upiRef} 
+            [${p.verified === true ? "✅ Approved" : p.verified === false ? "❌ Rejected" : "⏳ Pending"}]
+            <button onclick="approve(${p.id})">Accept</button>
+            <button onclick="reject(${p.id})">Reject</button>
+          </p>`;
+      });
+    }
+
+    // Approve payment
+    async function approve(id) {
+      await fetch(`/approve-payment/${id}`, { method: "POST" });
+      loadPayments();
+    }
+
+    // Reject payment
+    async function reject(id) {
+      await fetch(`/reject-payment/${id}`, { method: "POST" });
+      loadPayments();
+    }
+
+    // Initial load
+    loadPayments();
+  </script>
+</body>
+</html>
