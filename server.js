@@ -65,7 +65,7 @@ app.get("/payments", async (req, res) => {
 
 
 app.post("/approve-payment",  async(req, res) => {
-  const { id: paymentId } = req.query;
+  /*const { id: paymentId } = req.query;
   try {
     // Mark payment verified
      if (!paymentId) return res.status(400).json({ error: "paymentId is required" });
@@ -90,17 +90,18 @@ app.post("/approve-payment",  async(req, res) => {
 
     console.log("Sending mail to:", payment.email);
     // Send email
-  /*  await transporter.sendMail({
+    await transporter.sendMail({
       from: "sri200279@gmail.com",
       to: payment.email,
       subject: "Your Login Credentials",
       text: `Hello ${payment.name},\n\nYour login details:\nID: ${studentId}\nPassword: ${password}`
-    });*/
+    });
 
     res.json({ success: true, message: "Payment approved and user created" });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
-  }
+  }*/
+  res.json({success:true,message:"payment approved"});
 });
 
 app.post("/check-login", async (req, res) => {
@@ -159,6 +160,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
