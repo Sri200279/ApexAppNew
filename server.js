@@ -8,7 +8,7 @@ import pkg from "pg";
 const { Pool } = pkg;
 const app = express();
 app.use(cors());
-//app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended:false}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -158,6 +158,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
