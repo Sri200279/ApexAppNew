@@ -83,6 +83,9 @@ app.post("/approve-payment",  async(req, res) => {
 
     // Fetch payment for email
     const paymentRes = await pool.query("SELECT * FROM payments WHERE id = $1", [id]);
+   if (!paymentRes) {
+      return res.status(404).json({ error: "Payment not found" });
+    }
     const payment = paymentRes.rows[0];
     if (!payment) {
       return res.status(404).json({ error: "Payment not found" });
@@ -95,6 +98,8 @@ app.post("/approve-payment",  async(req, res) => {
       to: payment.email,
       subject: "Your Login Credentials",
       text: `Hello ${payment.name},\n\nYour login details:\nID: ${studentId}\nPassword: ${password}`
+    },()={
+            return res.status(404).json({ error: "Payment not found" });
     });
 
     res.json({ success: true, message: "Payment approved and user created" });
@@ -159,6 +164,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
