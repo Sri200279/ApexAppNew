@@ -84,7 +84,11 @@ app.post("/approve-payment",  async(req, res) => {
     // Fetch payment for email
     const paymentRes = await pool.query("SELECT * FROM payments WHERE id = $1", [paymentId]);
     const payment = paymentRes.rows[0];
+    if (!payment) {
+      return res.status(404).json({ error: "Payment not found" });
+    }
 
+    console.log("Sending mail to:", payment.email);
     // Send email
     await transporter.sendMail({
       from: "sri200279@gmail.com",
@@ -155,6 +159,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
