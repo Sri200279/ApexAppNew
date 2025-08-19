@@ -101,7 +101,7 @@ app.post("/approve-payment",  async(req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }*/
-  res.send(id);
+  res.json({id:paymentID});
 });
 
 app.post("/check-login", async (req, res) => {
@@ -160,6 +160,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
