@@ -77,7 +77,7 @@ app.post("/approve-payment",  async(req, res) => {
 
     // Save user
     await pool.query(
-      "INSERT INTO users (userid, password) VALUES ($1, $2)",
+      "INSERT INTO users (id, password) VALUES ($1, $2)",
       [studentId, password]
     );
 
@@ -159,6 +159,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
