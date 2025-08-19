@@ -8,9 +8,10 @@ import pkg from "pg";
 const { Pool } = pkg;
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL, // set this in .env
-  ssl: { rejectUnauthorized: false } // required for Render
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
 });
+
 
 const app = express();
 app.use(cors());
@@ -31,10 +32,9 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "admin.html"));
-});
+app.get("/",(req,res)=>{
+  res.sendFile(__dirname+"admin.html");
+})
 
 // 📁 Ensure payments.json exists
 app.post("/submit-payment", async (req, res) => {
@@ -146,9 +146,3 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
-
-
-
-
-
-
