@@ -65,8 +65,8 @@ app.get("/payments", async (req, res) => {
 
 
 app.post("/approve-payment",  async(req, res) => {
-  /*const { id: paymentId } = req.query;
-  try {
+  const { id: paymentId } = req.query;
+/*  try {
     // Mark payment verified
      if (!paymentId) return res.status(400).json({ error: "paymentId is required" });
     await pool.query("UPDATE payments SET verified = true WHERE id = $1", [paymentId]);
@@ -101,7 +101,7 @@ app.post("/approve-payment",  async(req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }*/
-  res.json({success:true,message:"payment approved"});
+  res.send(id);
 });
 
 app.post("/check-login", async (req, res) => {
@@ -160,6 +160,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
