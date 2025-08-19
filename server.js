@@ -66,10 +66,10 @@ app.get("/payments", async (req, res) => {
 
 app.post("/approve-payment",  async(req, res) => {
   const { id: paymentId } = req.query;
-/*  try {
+ try {
     // Mark payment verified
-     if (!paymentId) return res.status(400).json({ error: "paymentId is required" });
-    await pool.query("UPDATE payments SET verified = true WHERE id = $1", [paymentId]);
+     if (!id) return res.status(400).json({ error: "paymentId is required" });
+    await pool.query("UPDATE payments SET verified = true WHERE id = $1", [id]);
 
     // Generate credentials
     const studentId = "student" + Math.floor(Math.random() * 1000);
@@ -82,7 +82,7 @@ app.post("/approve-payment",  async(req, res) => {
     );
 
     // Fetch payment for email
-    const paymentRes = await pool.query("SELECT * FROM payments WHERE id = $1", [paymentId]);
+    const paymentRes = await pool.query("SELECT * FROM payments WHERE id = $1", [id]);
     const payment = paymentRes.rows[0];
     if (!payment) {
       return res.status(404).json({ error: "Payment not found" });
@@ -100,8 +100,7 @@ app.post("/approve-payment",  async(req, res) => {
     res.json({ success: true, message: "Payment approved and user created" });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
-  }*/
-  res.json({id:paymentID});
+  }
 });
 
 app.post("/check-login", async (req, res) => {
@@ -160,6 +159,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
