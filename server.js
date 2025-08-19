@@ -65,7 +65,7 @@ app.get("/payments", async (req, res) => {
 
 
 app.post("/approve-payment",  async(req, res) => {
-  const paymentId = req.query.id;
+  const paymentId = req.query;
   try {
     // Mark payment verified
     await pool.query("UPDATE payments SET verified = true WHERE id = $1", [paymentId]);
@@ -154,6 +154,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
