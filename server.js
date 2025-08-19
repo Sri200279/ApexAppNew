@@ -65,7 +65,7 @@ app.get("/payments", async (req, res) => {
 
 
 app.post("/approve-payment",  async(req, res) => {
-  const paymentId = req.query;
+  const { id: paymentId } = req.query;
   try {
     // Mark payment verified
      if (!paymentId) return res.status(400).json({ error: "paymentId is required" });
@@ -155,6 +155,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
