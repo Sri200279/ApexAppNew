@@ -9,8 +9,8 @@ const { Pool } = pkg;
 const app = express();
 app.use(cors());
 app.use(express.urlencoded({extended:false}));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.json());
+//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -94,8 +94,6 @@ app.post("/approve-payment",  async(req, res) => {
       to: payment.email,
       subject: "Your Login Credentials",
       text: `Hello ${payment.name},\n\nYour login details:\nID: ${studentId}\nPassword: ${password}`
-    },()={
-            return res.status(404).json({ error: "mail feature not working" });
     });
 
     res.json({ success: true, message: "Payment approved and user created" });
@@ -160,6 +158,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
