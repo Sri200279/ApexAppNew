@@ -32,6 +32,13 @@ const transporter = nodemailer.createTransport({
     pass: "xfxp exnq laya ncbd"  // App Password
   }
 });
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("SMTP Connection Error:", error);
+  } else {
+    console.log("SMTP server is ready:", success);
+  }
+});
 
 app.get("/",(req,res)=>{
   res.sendFile(__dirname+"/admin.html");
@@ -147,6 +154,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
