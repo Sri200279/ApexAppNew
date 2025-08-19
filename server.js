@@ -29,7 +29,7 @@ const transporter = nodemailer.createTransport({
   secure: true, // true for port 465*/
   auth: {
     user: "sri200279@gmail.com", // your Gmail address
-    pass: "vxyn zogb nyyr zufa"  // App Password
+    pass: "xfxp exnq laya ncbd"  // App Password
   }
 });
 
@@ -147,6 +147,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
