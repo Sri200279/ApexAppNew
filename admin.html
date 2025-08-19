@@ -27,13 +27,13 @@
 
     // Approve payment
     async function approve(id) {
-      await fetch(`https://apexappnew.onrender.com/approve-payment/?id=${id}`, { method: "POST" });
+      await fetch(`https://apexappnew.onrender.com/approve-payment?id=${id}`, { method: "POST" });
       loadPayments();
     }
 
     // Reject payment
     async function reject(id) {
-      await fetch(`https://apexappnew.onrender.com/reject-payment/?id=${id}`, { method: "POST" });
+      await fetch(`https://apexappnew.onrender.com/reject-payment?id=${id}`, { method: "POST" });
       loadPayments();
     }
 
@@ -42,5 +42,6 @@
   </script>
 </body>
 </html>
+
 
 
