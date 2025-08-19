@@ -57,7 +57,7 @@ app.get("/payments", async (req, res) => {
 });
 
 
-app.post("/approve-payment/:id", async (req, res) => {
+app.post("/approve-payment/:id",  (req, res) => {
   const paymentId = req.params.id;
   try {
     // Mark payment verified
@@ -78,7 +78,7 @@ app.post("/approve-payment/:id", async (req, res) => {
     const payment = paymentRes.rows[0];
 
     // Send email
-    await transporter.sendMail({
+    transporter.sendMail({
       from: "sri200279@gmail.com",
       to: payment.email,
       subject: "Your Login Credentials",
@@ -147,6 +147,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
