@@ -33,7 +33,7 @@ const transporter = nodemailer.createTransport({
 });
 
 app.get("/",(req,res)=>{
-  res.sendFile(__dirname+"admin.html");
+  res.sendFile(__dirname+"/admin.html");
 })
 
 // 📁 Ensure payments.json exists
@@ -146,3 +146,4 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
