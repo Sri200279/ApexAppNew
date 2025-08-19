@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import pool from './db'
 
 
 const app = express();
@@ -140,5 +141,6 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
