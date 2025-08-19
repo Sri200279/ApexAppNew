@@ -60,7 +60,7 @@ app.get("/payments", async (req, res) => {
 });
 
 
-app.post("/approve-payment",  async(req, res) => {
+/*app.post("/approve-payment",  async(req, res) => {
   const { id: paymentId } = req.query;
  try {
     // Mark payment verified
@@ -95,14 +95,20 @@ app.post("/approve-payment",  async(req, res) => {
       subject: "Your Login Credentials",
       text: `Hello ${payment.name},\n\nYour login details:\nID: ${studentId}\nPassword: ${password}`
     },()={
-            return res.status(404).json({ error: "Payment not found" });
+            return res.status(404).json({ error: "mail feature not working" });
     });
 
     res.json({ success: true, message: "Payment approved and user created" });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
+});*/
+
+app.post("/approve-payment", (req, res) => {
+  console.log("hello");
+  res.json({ success: true, message: "Hello logged" }); // 👈 send a response
 });
+
 
 app.post("/check-login", async (req, res) => {
   const { id, password } = req.body;
@@ -160,6 +166,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
