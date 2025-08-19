@@ -6,13 +6,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import pkg from "pg";
 const { Pool } = pkg;
-
-const pool = new Pool({
-  connectionString: process.env.DB_KEY,
-  ssl: { rejectUnauthorized: false }
-});
-
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +14,10 @@ app.use(bodyParser.json());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+const pool = new Pool({
+  connectionString: process.env.DB_KEY,
+  ssl: { rejectUnauthorized: false }
+});
 const transporter = nodemailer.createTransport({
   service:"gmail",
   host: "smtp.gmail.com",
@@ -164,6 +160,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
