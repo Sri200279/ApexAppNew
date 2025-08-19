@@ -24,9 +24,9 @@ const __dirname = path.dirname(__filename);
 
 const transporter = nodemailer.createTransport({
   service:"gmail",
-  /*host: "smtp.gmail.com",
+  host: "smtp.gmail.com",
   port: 465,
-  secure: true, // true for port 465*/
+  secure: true, // true for port 465
   auth: {
     user: "sri200279@gmail.com", // your Gmail address
     pass: "xfxp exnq laya ncbd"  // App Password
@@ -84,14 +84,14 @@ app.post("/approve-payment",  async(req, res) => {
     // Fetch payment for email
     const paymentRes = await pool.query("SELECT * FROM payments WHERE id = $1", [paymentId]);
     const payment = paymentRes.rows[0];
-/*
+
     // Send email
     await transporter.sendMail({
       from: "sri200279@gmail.com",
       to: payment.email,
       subject: "Your Login Credentials",
       text: `Hello ${payment.name},\n\nYour login details:\nID: ${studentId}\nPassword: ${password}`
-    });*/
+    });
 
     res.json({ success: true, message: "Payment approved and user created" });
   } catch (err) {
@@ -155,6 +155,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
