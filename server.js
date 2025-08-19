@@ -24,9 +24,9 @@ const __dirname = path.dirname(__filename);
 
 const transporter = nodemailer.createTransport({
   service:"gmail",
-  host: "smtp.gmail.com",
+  /*host: "smtp.gmail.com",
   port: 465,
-  secure: true, // true for port 465
+  secure: true, // true for port 465*/
   auth: {
     user: "sri200279@gmail.com", // your Gmail address
     pass: "vxyn zogb nyyr zufa"  // App Password
@@ -147,6 +147,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
