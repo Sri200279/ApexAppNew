@@ -80,9 +80,7 @@ app.post("/approve-payment",  async(req, res) => {
 
     // Fetch payment for email
     const paymentRes = await pool.query("SELECT * FROM payments WHERE id = $1", [id]);
-   if (!paymentRes) {
-      return res.status(404).json({ error: "Payment not found" });
-    }
+   
     const payment = paymentRes.rows[0];
     if (!payment) {
       return res.status(404).json({ error: "Payment not found" });
@@ -161,6 +159,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
