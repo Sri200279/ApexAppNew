@@ -55,7 +55,7 @@
         div.innerHTML += `
           <p>
             ${p.question} (${p.answer}) 
-            [${p.verified === true ? "✅ Approved" : p.verified === false ? "❌ Rejected" : "⏳ Pending"}]
+            [${p.status === true ? "✅ Approved" : p.verified === false ? "❌ Rejected" : "⏳ Pending"}]
             <button onclick="approve1(${p.id})">Accept</button>
             <button onclick="reject1(${p.id})">Reject</button>
           </p>`;
@@ -83,4 +83,5 @@
 
 </body>
 </html>
+
 
