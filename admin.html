@@ -55,7 +55,7 @@
         div.innerHTML += `
           <p>
             ${p.question} (${p.answer}) 
-            [${p.status === true ? "✅ Approved" : p.verified === false ? "❌ Rejected" : "⏳ Pending"}]
+            [${p.status === true ? "✅ Approved" : p.status === false ? "❌ Rejected" : "⏳ Pending"}]
             <button onclick="approve1(${p.id})">Accept</button>
             <button onclick="reject1(${p.id})">Reject</button>
           </p>`;
@@ -64,7 +64,7 @@
 
     // Approve payment
     async function approve1(id) {
-      await fetch(`/approve-ans/${id}`, { method: "POST" });
+      await fetch(`/approve-ans/?id=${id}`, { method: "POST" });
       loadDiscussion();
     }
 
@@ -83,5 +83,6 @@
 
 </body>
 </html>
+
 
 
