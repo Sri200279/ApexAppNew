@@ -98,17 +98,13 @@ app.post("/approve-ans", async (req, res) => {
     }
     // Save Q&A
     await pool.query(
-      "INSERT INTO gd (question, answer) VALUES ($1, $2)",
+      "INSERT INTO GD (question, answer) VALUES ($1, $2)",
       [question, answer]
     );
 
     // Fetch payment for email
-    const Res = await pool.query("SELECT * FROM gd");
+    const Res = await pool.query("SELECT * FROM GD");
     const qst = Res.rows;
-
-    if (!qst) {
-      return res.status(404).json({ error: "Payment not found" });
-    }
 
     res.json({ success: true, message: qst });
   } catch (err) {
@@ -236,6 +232,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
