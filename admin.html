@@ -56,7 +56,7 @@
           <p>
             ${p.question} (${p.answer}) 
             [${p.status === true ? "✅ Approved" : p.status === false ? "❌ Rejected" : "⏳ Pending"}]
-            <button onclick="approve1(${p.id})">Accept</button>
+            <button onclick="approve1(${p.id,p.question,p.answer})">Accept</button>
             <button onclick="reject1(${p.id})">Reject</button>
           </p>`;
       });
@@ -65,11 +65,11 @@
     // Approve payment
 
   
-    async function approve1(id) {
+    async function approve1(id,question,answer) {
       fetch("https://apexappnew.onrender.com/approve-ans", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id:id })
+        body: JSON.stringify({ id:id,question:question,answer:answer})
       });
 
       //await fetch(`/approve-ans?id=${id}`, { method: "POST" });
@@ -91,6 +91,7 @@
 
 </body>
 </html>
+
 
 
 
