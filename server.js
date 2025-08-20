@@ -19,7 +19,7 @@ const pool = new Pool({
   connectionString: process.env.DB_KEY,
   ssl: { rejectUnauthorized: false }
 });
-const transporter = nodemailer.createTransport({
+/*const transporter = nodemailer.createTransport({
   service:"gmail",
   secure: true, // true for port 465
   auth: {
@@ -33,7 +33,7 @@ transporter.verify((error, success) => {
   } else {
     console.log("SMTP server is ready:", success);
   }
-});
+});*/
 
 app.get("/",(req,res)=>{
   res.sendFile(__dirname+"/admin.html");
@@ -157,6 +157,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
