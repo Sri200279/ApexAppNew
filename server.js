@@ -44,7 +44,7 @@ app.post("/submit-payment", async (req, res) => {
   const { name, email, upiref } = req.body;
   try {
     const result = await pool.query(
-      "INSERT INTO payments (name, email, upiRef) VALUES ($1, $2, $3) RETURNING *",
+      "INSERT INTO payments (name, email, upiref) VALUES ($1, $2, $3) RETURNING *",
       [name, email, upiref]
     );
     res.json({ success: true, payment: result.rows[0] });
@@ -162,6 +162,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
