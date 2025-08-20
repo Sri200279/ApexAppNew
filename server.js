@@ -50,7 +50,6 @@ app.post("/submit-payment", async (req, res) => {
       [name, email, upiRef]
     );
     res.json({ success: true, payment: result.rows[0] });
-    next();
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -162,6 +161,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
