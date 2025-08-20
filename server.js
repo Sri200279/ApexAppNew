@@ -47,6 +47,7 @@ app.post("/submit-payment", async (req, res) => {
       [name, email, upiRef]
     );
     res.json({ success: true, payment: result.rows[0] });
+    next();
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -156,6 +157,7 @@ app.get("/init", async (req, res) => {
 
 
 app.listen(5000, () => console.log("✅ Server running on http://localhost:5000"));
+
 
 
 
