@@ -21,6 +21,8 @@ const pool = new Pool({
 });
 const transporter = nodemailer.createTransport({
   service:"gmail",
+  host:smtp.gmail.com,
+  port:465,
   secure: true, // true for port 465
   auth: {
     user: "sri200279@gmail.com", // your Gmail address
@@ -162,6 +164,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
