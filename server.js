@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
-
+var question1,answer1;
 const pool = new Pool({
   connectionString: process.env.DB_KEY,
   ssl: { rejectUnauthorized: false }
@@ -57,7 +57,8 @@ app.post("/submit-payment", async (req, res) => {
 app.post("/submit-discussion", async (req, res) => {
   console.log("ok working");
   const { question, answer } = req.body;
-
+  question1=question;
+  answer1=answer;
   if (!question || !answer) {
     return res.status(400).json({ success: false, msg: "Question and Answer are required" });
   }
@@ -101,7 +102,7 @@ app.post("/approve-ans", async (req, res) => {
     // Save Q&A
     await pool.query(
       "INSERT INTO GD (question, answer) VALUES ($1, $2)",
-      [question, answer]
+      [question1, answer1]
     );
 
     // Fetch payment for email
@@ -234,6 +235,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
