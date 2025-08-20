@@ -64,7 +64,7 @@
 
     // Approve payment
     async function approve1(id) {
-      await fetch(`/approve-ans/${id}`, { method: "POST" });
+      await fetch(`/approve-ans?id=${id}`, { method: "POST" });
       loadDiscussion();
     }
 
@@ -83,6 +83,7 @@
 
 </body>
 </html>
+
 
 
 
