@@ -56,7 +56,7 @@
           <p>
             ${p.question} (${p.answer}) 
             [${p.status === true ? "✅ Approved" : p.status === false ? "❌ Rejected" : "⏳ Pending"}]
-            <button onclick="approve1(${p.id,p.question,p.answer})">Accept</button>
+            <button onclick="approve1(${p.id},${p.question},${p.answer})">Accept</button>
             <button onclick="reject1(${p.id})">Reject</button>
           </p>`;
       });
@@ -91,6 +91,7 @@
 
 </body>
 </html>
+
 
 
 
