@@ -21,8 +21,6 @@ const pool = new Pool({
 });
 const transporter = nodemailer.createTransport({
   service:"gmail",
-  host:"smtp.gmail.com",
-  port:465,
   secure: true, // true for port 465
   auth: {
     user: "sri200279@gmail.com", // your Gmail address
@@ -54,6 +52,40 @@ app.post("/submit-payment", async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+
+app.post("/submit-discussion", async (req, res) => {
+  console.log("ok working");
+  const { question, answer } = req.body;
+
+  if (!question || !answer) {
+    return res.status(400).json({ success: false, msg: "Question and Answer are required" });
+  }
+
+  try {
+    const result = await pool.query(
+      "INSERT INTO GD (question, answer) VALUES ($1, $2) RETURNING *",
+      [question, answer]
+    );
+
+    res.json({
+      success: true,
+      msg: "Very good, you have submitted your answer",
+      data: result.rows[0], // return inserted row
+    });
+  } catch (err) {
+    console.error("Database Error:", err.message);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.get("/list-discussion", async (req, res) => {
+  const result = await pool.query("SELECT * FROM GD WHERE question=$1",[question]);
+  if(result)
+  res.json(result.rows);
+});
+
+
 
 app.get("/payments", async (req, res) => {
   const result = await pool.query("SELECT * FROM payments");
@@ -153,6 +185,15 @@ app.get("/init", async (req, res) => {
       );
     `);
 
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS GD (
+        id SERIAL PRIMARY KEY,
+        question VARCHAR(70) UNIQUE,
+        answer VARCHAR(500)
+      );
+    `);
+
+
     res.json({ success: true, message: "Tables created or already exist ✅" });
   } catch (err) {
     console.error("Init error:", err);
@@ -164,11 +205,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
-
-
-
-
-
 
 
 
