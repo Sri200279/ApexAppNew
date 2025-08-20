@@ -84,6 +84,12 @@ app.get("/list-discussion", async (req, res) => {
   res.json(result.rows);
 });
 
+app.get("/list-approved", async (req, res) => {
+  const result = await pool.query("SELECT * FROM GD");
+  res.json(result.rows);
+});
+
+
 app.post("/approve-ans", async (req, res) => {
   try {
     const { id } = req.query; // ✅ directly get id from query
@@ -230,6 +236,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
