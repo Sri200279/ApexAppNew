@@ -86,12 +86,12 @@ app.post("/approve-payment",  async(req, res) => {
 
     console.log("Sending mail to:", payment.email);
     // Send email
-    await transporter.sendMail({
+   /* await transporter.sendMail({
       from: "sri200279@gmail.com",
       to: payment.email,
       subject: "Your Login Credentials",
       text: `Hello ${payment.name},\n\nYour login details:\nID: ${studentId}\nPassword: ${password}`
-    });
+    });*/
 
     res.json({ success: true, message: "Payment approved and user created" });
   } catch (err) {
@@ -157,6 +157,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
