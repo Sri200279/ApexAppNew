@@ -81,7 +81,6 @@ app.post("/submit-discussion", async (req, res) => {
 
 app.get("/list-discussion", async (req, res) => {
   const result = await pool.query("SELECT * FROM GD");
-  if(result)
   res.json(result.rows);
 });
 
@@ -205,6 +204,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
