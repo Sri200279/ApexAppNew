@@ -60,8 +60,8 @@ app.get("/payments", async (req, res) => {
 
 
 app.post("/approve-payment",  async(req, res) => {
-  const { id: paymentId } = req.query;
- /*try {
+  const { id } = req.query;
+ try {
     // Mark payment verified
      if (!id) return res.status(400).json({ error: "paymentId is required" });
     await pool.query("UPDATE payments SET verified = true WHERE id = $1", [id]);
@@ -91,7 +91,7 @@ app.post("/approve-payment",  async(req, res) => {
       to: payment.email,
       subject: "Your Login Credentials",
       text: `Hello ${payment.name},\n\nYour login details:\nID: ${studentId}\nPassword: ${password}`
-    });*/
+    });
 
     res.json({ success: true, message: "Payment approved and user created" });
   } catch (err) {
@@ -157,6 +157,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
