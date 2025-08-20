@@ -41,11 +41,11 @@ app.get("/",(req,res)=>{
 
 // 📁 Ensure payments.json exists
 app.post("/submit-payment", async (req, res) => {
-  const { name, email, upiRef } = req.body;
+  const { name, email, upiref } = req.body;
   try {
     const result = await pool.query(
       "INSERT INTO payments (name, email, upiRef) VALUES ($1, $2, $3) RETURNING *",
-      [name, email, upiRef]
+      [name, email, upiref]
     );
     res.json({ success: true, payment: result.rows[0] });
   } catch (err) {
@@ -108,7 +108,7 @@ app.post("/check-login", async (req, res) => {
   const { id, password } = req.body;
   try {
     const result = await pool.query(
-      "SELECT * FROM users WHERE userid = $1 AND password = $2",
+      "SELECT * FROM users WHERE id = $1 AND password = $2",
       [id, password]
     );
     if (result.rows.length > 0) {
@@ -121,10 +121,10 @@ app.post("/check-login", async (req, res) => {
   }
 });
 
-app.post("/reject-payment/:id", async (req, res) => {
-  const paymentId = req.params.id;
+app.post("/reject-payment", async (req, res) => {
+  const {id} = req.query;
   try {
-    await pool.query("UPDATE payments SET verified = false WHERE id = $1", [paymentId]);
+    await pool.query("UPDATE payments SET verified = false WHERE id = $1", [id]);
     res.json({ success: true, message: "Payment rejected" });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
@@ -162,6 +162,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
