@@ -17,7 +17,7 @@
       payments.forEach(p => {
         div.innerHTML += `
           <p>
-            ${p.name} (${p.email}) - ${p.upiref} 
+            ${p.name} (${p.email}) - ${p.upiRef} 
             [${p.verified === true ? "✅ Approved" : p.verified === false ? "❌ Rejected" : "⏳ Pending"}]
             <button onclick="approve(${p.id})">Accept</button>
             <button onclick="reject(${p.id})">Reject</button>
@@ -27,24 +27,57 @@
 
     // Approve payment
     async function approve(id) {
-      await fetch(`https://apexappnew.onrender.com/approve-payment?id=${id}`, {method: "POST"});
+      await fetch(`/approve-payment/${id}`, { method: "POST" });
       loadPayments();
     }
 
     // Reject payment
     async function reject(id) {
-      await fetch(`https://apexappnew.onrender.com/reject-payment?id=${id}`, { method: "POST" });
+      await fetch(`/reject-payment/${id}`, { method: "POST" });
       loadPayments();
     }
 
     // Initial load
     loadPayments();
   </script>
+
+
+<script>
+    async function loadDiscussion() {
+      const res = await fetch("/list-discussion"); // 🔹 now calls DB API
+      const disc = await res.json();
+      const div = document.getElementById("discussion");
+      div.innerHTML = "";
+
+      disc.forEach(p => {
+        div.innerHTML += `
+          <p>
+            ${p.question} (${p.answer}) 
+            [${p.verified === true ? "✅ Approved" : p.verified === false ? "❌ Rejected" : "⏳ Pending"}]
+            <button onclick="approve1(${p.id})">Accept</button>
+            <button onclick="reject1(${p.id})">Reject</button>
+          </p>`;
+      });
+    }
+
+    // Approve payment
+    async function approve1(id) {
+      await fetch(`/approve-ans/${id}`, { method: "POST" });
+      loadDiscussion();
+    }
+
+    // Reject payment
+    async function reject1(id) {
+      await fetch(`/reject-ans/${id}`, { method: "POST" });
+      loadDiscussion();
+    }
+
+    // Initial load
+    loadDiscussion();
+  </script>
+
+
+
+
 </body>
 </html>
-
-
-
-
-
-
