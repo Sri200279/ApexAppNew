@@ -70,7 +70,7 @@
 
     // Reject payment
     async function reject1(id) {
-      await fetch(`/reject-ans/${id}`, { method: "POST" });
+      await fetch(`/reject-ans?id=${id}`, { method: "POST" });
       loadDiscussion();
     }
 
@@ -83,6 +83,7 @@
 
 </body>
 </html>
+
 
 
 
