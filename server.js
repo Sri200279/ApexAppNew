@@ -59,11 +59,14 @@ app.get("/payments", async (req, res) => {
 });
 
 
-app.post("/approve-payment",  async(req, res) => {
-  const { id } = req.query;
- try {
+app.post("/approve-payment", async (req, res) => {
+  try {
+    const { id } = req.query; // ✅ directly get id from query
+    if (!id) {
+      return res.status(400).json({ error: "paymentId is required" });
+    }
+
     // Mark payment verified
-     if (!id) return res.status(400).json({ error: "paymentId is required" });
     await pool.query("UPDATE payments SET verified = true WHERE id = $1", [id]);
 
     // Generate credentials
@@ -78,13 +81,14 @@ app.post("/approve-payment",  async(req, res) => {
 
     // Fetch payment for email
     const paymentRes = await pool.query("SELECT * FROM payments WHERE id = $1", [id]);
-   
     const payment = paymentRes.rows[0];
+
     if (!payment) {
       return res.status(404).json({ error: "Payment not found" });
     }
 
     console.log("Sending mail to:", payment.email);
+
     // Send email
     await transporter.sendMail({
       from: "sri200279@gmail.com",
@@ -95,6 +99,7 @@ app.post("/approve-payment",  async(req, res) => {
 
     res.json({ success: true, message: "Payment approved and user created" });
   } catch (err) {
+    console.error("Error approving payment:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -157,6 +162,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
