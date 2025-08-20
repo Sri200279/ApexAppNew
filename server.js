@@ -84,6 +84,32 @@ app.get("/list-discussion", async (req, res) => {
   res.json(result.rows);
 });
 
+app.post("/approve-ans", async (req, res) => {
+  try {
+    const { id } = req.query; // ✅ directly get id from query
+    if (!id) {
+      return res.status(400).json({ error: "questionId is required" });
+    }
+    // Save Q&A
+    await pool.query(
+      "INSERT INTO gd (question, answer) VALUES ($1, $2)",
+      [question, answer]
+    );
+
+    // Fetch payment for email
+    const Res = await pool.query("SELECT * FROM gd WHERE id = $1", [id]);
+    const qst = Res.rows[0];
+
+    if (!qst) {
+      return res.status(404).json({ error: "Payment not found" });
+    }
+
+    res.json({ success: true, message: qst });
+  } catch (err) {
+    console.error("Error approving:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 
 
 app.get("/payments", async (req, res) => {
@@ -204,6 +230,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
