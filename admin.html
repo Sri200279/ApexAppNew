@@ -63,8 +63,16 @@
     }
 
     // Approve payment
+
+  
     async function approve1(id) {
-      await fetch(`/approve-ans?id=${id}`, { method: "POST" });
+      fetch("https://apexappnew.onrender.com/approve-ans", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id:id })
+      });
+
+      //await fetch(`/approve-ans?id=${id}`, { method: "POST" });
       loadDiscussion();
     }
 
@@ -83,6 +91,7 @@
 
 </body>
 </html>
+
 
 
 
