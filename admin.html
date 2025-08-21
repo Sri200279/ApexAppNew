@@ -42,13 +42,13 @@
   </script>
  <h2>Load Answer Request</h2>
 <div id="discussion"></div>
-
-
+<input id="inp" type="text" placeholder="Enter Rating">
 <script>
 async function loadDiscussion() {
   const res = await fetch("/list-discussion");
   const disc = await res.json();
   const div = document.getElementById("discussion");
+  const inp = document.getElementById("inp");
   div.innerHTML = "";
 
   disc.forEach(p => {
@@ -73,10 +73,11 @@ async function loadDiscussion() {
 }
 
 async function approve1(id, question, answer) {
+const rate=inp.value;
   await fetch("https://apexappnew.onrender.com/approve-ans", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id, question, answer })
+    body: JSON.stringify({ id, question, answer,rate })
   });
   await loadDiscussion();
 }
@@ -94,6 +95,7 @@ loadDiscussion();
 </script>
 </body>
 </html>
+
 
 
 
