@@ -93,7 +93,7 @@ app.get("/list-approved", async (req, res) => {
 
 app.post("/approve-ans", async (req, res) => {
   try {
-    const {id,question,answer}  = req.body; // ✅ directly get id from query
+    const {id,question,answer,rate}  = req.body; // ✅ directly get id from query
     if (!id) {
       return res.status(400).json({ error: "questionId is required" });
     }
@@ -101,8 +101,8 @@ app.post("/approve-ans", async (req, res) => {
      await pool.query("UPDATE gd1 SET status = true WHERE id = $1", [id]);
     // Save Q&A
     await pool.query(
-      "INSERT INTO GD (question, answer) VALUES ($1, $2)",
-      [question, answer]
+      "INSERT INTO GD (question, answer,stars) VALUES ($1, $2,$3)",
+      [question, answer,rate]
     );
 
     // Fetch payment for email
@@ -235,6 +235,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
