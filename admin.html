@@ -45,8 +45,6 @@
 
 
 <script>
-<h2>Load Answer Request</h2>
-<div id="discussion"></div>
 async function loadDiscussion() {
   const res = await fetch("/list-discussion");
   const disc = await res.json();
@@ -96,6 +94,7 @@ loadDiscussion();
 </script>
 </body>
 </html>
+
 
 
 
