@@ -45,10 +45,8 @@
 
 
 <script>
-    <h2>Load Answer Request</h2>
+<h2>Load Answer Request</h2>
 <div id="discussion"></div>
-
-<script>
 async function loadDiscussion() {
   const res = await fetch("/list-discussion");
   const disc = await res.json();
@@ -96,13 +94,9 @@ async function reject1(id) {
 
 loadDiscussion();
 </script>
-</script>
-
-
-
-
 </body>
 </html>
+
 
 
 
