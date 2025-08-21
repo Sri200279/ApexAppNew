@@ -86,7 +86,7 @@ app.get("/list-discussion", async (req, res) => {
 });
 
 app.get("/list-approved", async (req, res) => {
-  const result = await pool.query("SELECT * FROM GD");
+  const result = await pool.query("SELECT * FROM gd");
   res.json({success:true,result:result.rows});
 });
 
@@ -94,6 +94,7 @@ app.get("/list-approved", async (req, res) => {
 app.post("/approve-ans", async (req, res) => {
   try {
     const {id,question,answer,rate}  = req.body; // ✅ directly get id from query
+    const stars=parseInt(rate);
     if (!id) {
       return res.status(400).json({ error: "questionId is required" });
     }
@@ -103,12 +104,12 @@ app.post("/approve-ans", async (req, res) => {
      await pool.query("UPDATE gd1 SET status = true WHERE id = $1", [id]);
     // Save Q&A
     await pool.query(
-      "INSERT INTO GD (question, answer,stars) VALUES ($1, $2,$3)",
-      [question, answer,rate]
+      "INSERT INTO gd (question, answer,stars) VALUES ($1, $2,$3)",
+      [question, answer,stars]
     );
 
     // Fetch payment for email
-    const Res = await pool.query("SELECT * FROM GD");
+    const Res = await pool.query("SELECT * FROM gd");
     const qst = Res.rows;
 
     res.json({ success: true, message: qst });
@@ -237,6 +238,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
