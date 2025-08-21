@@ -98,6 +98,8 @@ app.post("/approve-ans", async (req, res) => {
       return res.status(400).json({ error: "questionId is required" });
     }
 
+    res.json({id:id,question:question,answer:answer,rate:rate});
+
      await pool.query("UPDATE gd1 SET status = true WHERE id = $1", [id]);
     // Save Q&A
     await pool.query(
@@ -235,6 +237,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,"0.0.0.0",() => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
 
