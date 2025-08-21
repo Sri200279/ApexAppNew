@@ -45,52 +45,65 @@
 
 
 <script>
-    async function loadDiscussion() {
-      const res = await fetch("/list-discussion"); // 🔹 now calls DB API
-      const disc = await res.json();
-      const div = document.getElementById("discussion");
-      div.innerHTML = "";
+    <h2>Load Answer Request</h2>
+<div id="discussion"></div>
 
-      disc.forEach(p => {
-        div.innerHTML += `
-          <p>
-            ${p.question} (${p.answer}) 
-            [${p.status === true ? "✅ Approved" : p.status === false ? "❌ Rejected" : "⏳ Pending"}]
-            <button onclick="approve1(${p.id},${p.question},${p.answer})">Accept</button>
-            <button onclick="reject1(${p.id})">Reject</button>
-          </p>`;
-      });
-    }
+<script>
+async function loadDiscussion() {
+  const res = await fetch("/list-discussion");
+  const disc = await res.json();
+  const div = document.getElementById("discussion");
+  div.innerHTML = "";
 
-    // Approve payment
+  disc.forEach(p => {
+    const status = p.status === true ? "✅ Approved" : 
+                   p.status === false ? "❌ Rejected" : "⏳ Pending";
 
-  
-    async function approve1(id,question,answer) {
-      fetch("https://apexappnew.onrender.com/approve-ans", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id:id,question:question,answer:answer})
-      });
+    const container = document.createElement("p");
+    container.innerHTML = `${p.question} (${p.answer}) [${status}]`;
 
-      //await fetch(`/approve-ans?id=${id}`, { method: "POST" });
-      loadDiscussion();
-    }
+    const approveBtn = document.createElement("button");
+    approveBtn.textContent = "Accept";
+    approveBtn.onclick = () => approve1(p.id, p.question, p.answer);
 
-    // Reject payment
-    async function reject1(id) {
-      await fetch(`/reject-ans?id=${id}`, { method: "POST" });
-      loadDiscussion();
-    }
+    const rejectBtn = document.createElement("button");
+    rejectBtn.textContent = "Reject";
+    rejectBtn.onclick = () => reject1(p.id);
 
-    // Initial load
-    loadDiscussion();
-  </script>
+    container.appendChild(approveBtn);
+    container.appendChild(rejectBtn);
+    div.appendChild(container);
+  });
+}
+
+async function approve1(id, question, answer) {
+  await fetch("https://apexappnew.onrender.com/approve-ans", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id, question, answer })
+  });
+  await loadDiscussion();
+}
+
+async function reject1(id) {
+  await fetch("https://apexappnew.onrender.com/reject-ans", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id })
+  });
+  await loadDiscussion();
+}
+
+loadDiscussion();
+</script>
+</script>
 
 
 
 
 </body>
 </html>
+
 
 
 
