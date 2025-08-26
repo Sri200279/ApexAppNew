@@ -17,7 +17,7 @@
       payments.forEach(p => {
         div.innerHTML += `
           <p>
-            ${p.name} (${p.email}) - ${p.upiRef} 
+            ${p.name} (${p.email}) - ${p.upiref} 
             [${p.verified === true ? "✅ Approved" : p.verified === false ? "❌ Rejected" : "⏳ Pending"}]
             <button onclick="approve(${p.id})">Accept</button>
             <button onclick="reject(${p.id})">Reject</button>
@@ -95,6 +95,7 @@ loadDiscussion();
 </script>
 </body>
 </html>
+
 
 
 
